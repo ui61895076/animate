@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>3d折纸</title>
+<style>
+*{
+	margin:0;
+	padding:0;
+	}
+
+.wrap{
+	width:600px;
+	height:900px;
+	margin:0 auto;
+	border:1px solid #ccc;
+	 background:#18ABE0;
+	 position:relative;
+	 perspective:800px;
+	
+	}
+.wrap h2{
+	width:100%;
+	height:32px;
+	background:#1A9E3E;
+	color:#fff;
+	line-height:30px;
+	text-align:center;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:1;
+	}
+
+.wrap div{
+     width:100%;
+	 height:30px;
+	 
+	 position:absolute;
+	 top:31px;
+	 left:0;
+	 -webkit-transform-origin:top;
+	  -moz-transform-origin:top;
+	 transform-origin:top;
+	  -moz-transform-style:preserve-3d;
+	  -webkit-transform-style:preserve-3d;
+	 transform-style:preserve-3d;
+     transform:rotateX(-120deg);
+	 transition:1s;
+	}
+
+
+.wrap .open{
+	-webkit-transform:rotateX(0deg);
+	-moz-transform:rotateX(0deg);
+	transform:rotateX(0deg);
+	animation:an 2s;
+	
+	}
+.wrap .closed{
+	-webkit-transform:rotateX(-120deg);
+	-moz-transform:rotateX(-120deg);
+	transform:rotateX(-120deg);
+	
+	
+	}
+.wrap .open>a{
+	   box-shadow:inset 0 0 0 0 rgba(0,0,0,0.3);
+	}
+@keyframes an{
+	0%{
+		-moz-transform:rotateX(-120deg);
+		-webkit-transform:rotateX(-120deg);
+		 transform:rotateX(-120deg);
+		}
+	25%{
+		-moz-transform:rotateX(35deg);
+		-webkit-transform:rotateX(35deg);
+		 transform:rotateX(35deg);
+		}
+	55%{
+		-moz-transform:rotateX(-10deg);
+		-webkit-transform:rotateX(-10deg);
+		 transform:rotateX(-10deg);
+		}
+	75%{
+		-moz-transform:rotateX(5deg);
+		-webkit-transform:rotateX(5deg);
+		 transform:rotateX(5deg);
+		  
+		}
+	100%{
+		-moz-transform:rotateX(0deg);
+		-webkit-transform:rotateX(0deg);
+		 transform:rotateX(0deg);
+		}
+	
+	}
+
+.wrap div a{
+	height:30px;
+	line-height:30px;
+	display:block;
+	color:#fff;
+	text-align:center;
+	 font-size:16px;
+	 background: #E99F25;
+	 box-shadow:inset 0 0 400px 2px rgba(0,0,0,.5);
+	 transition:.7s;
+	}
+
+
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<h2>运动效果合集（请点我）</h2>
+	
+        <div>
+        	<a href="九宫格 点击放大缩小.html">九宫格 点击放大缩小</a>
+            <div>
+            	<a href="多个属性同时变化.html">多个属性同时变化</a>
+                <div >
+                	<a href="弹性运动.html">弹性运动</a>
+                    <div >
+                    	<a href="时间版运动01.html">时间版运动</a>
+                        <div>
+                        	<a href="物体缓冲运动.html">物体缓冲运动</a>
+                            <div >
+                            	<a href="碰撞运动1.html">碰撞运动</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
+</body>
+</html>
+<script>
+	window.onload=function(){
+		var wrap=document.querySelector('.wrap');
+		var aDiv=wrap.querySelectorAll('div');
+		var timer=null;
+		var i=0;
+		var flag=true;
+		var onOff=true;
+		wrap.onclick=function(){
+			clearInterval(timer);
+			  if(flag){
+				  timer=setInterval(function(){
+				  aDiv[i].className='open';
+				  i++;
+				  if(i==aDiv.length){
+					  clearInterval(timer);
+					  i=aDiv.length-1;
+					   flag=false;
+					  }
+				  },200);
+				 
+			  }else {
+				  timer=setInterval(function(){
+				  aDiv[i].className='closed';
+				  i--;
+				  if(i<0){
+					  clearInterval(timer);
+					  i=0;
+					   flag=true;
+					  }
+				  },200);
+				 
+			  }
+		}	
+	}
+</script>

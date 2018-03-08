@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background:#F00; position:absolute; top:0}
+
+
+
+</style>
+
+</head>
+
+<body>
+<div id="div1"></div>
+
+</body>
+</html>
+<script>
+window.onload=function(){
+ var oDiv=document.getElementById('div1');
+ oDiv.onclick=function(){
+	 move(this)
+  }	
+  
+  
+  var timer=null;
+  
+  function move(obj){
+	   var iSpeed=0;
+	 timer=setInterval(function(){
+		  iSpeed+=10//掉下来的加速度；
+		 
+		 obj.style.top=obj.offsetTop+iSpeed+'px';	
+		 if(obj.offsetTop>document.documentElement.clientHeight-obj.offsetHeight){
+		
+			 obj.style.top=document.documentElement.clientHeight-obj.offsetHeight+'px'
+		
+		     iSpeed*=-1;//改变方向
+		
+			 iSpeed*=0.8;//摩擦系数
+		
+		 };
+		  
+		 
+      },13);
+  };
+  
+}
+</script>

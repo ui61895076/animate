@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background:#F00; position:absolute;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+window.onload=function(){
+  var oDiv=document.getElementById('div1');
+  oDiv.onclick=function(){
+	 startMove(500) 
+	};
+  var iSpeed=0;
+  var timer=null;
+  
+  function startMove(iTarget){
+	   clearInterval(timer);
+			timer=setInterval(function(){	
+			iSpeed+=(iTarget-oDiv.offsetHeight)/6; 
+			iSpeed*=0.75;
+				if(Math.abs(iSpeed)<=1&&Math.abs(iTarget-oDiv.offsetHeight)<=1){
+				   iSpeed=0;
+				   oDiv.style.height=iTarget+'px';
+				   clearInterval(timer);
+				}
+				else{
+					oDiv.style.height=oDiv.offsetHeight+iSpeed+'px';  	
+				}	
+			},30) 
+	   
+  }
+
+ function getCss(obj,attr){
+    if(obj.currentStyle){
+		return obj.currentStyle[attr];
+	}else{
+	    return getComputedStyle(obj)[attr]
+	}	 
+ }
+  
+}
+</script>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background:#066; opacity:1; filter:alpha(opacity=50);}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+window.onload=function(){
+  var oDiv1=document.getElementById('div1');
+  oDiv1.onmouseover=function(){
+	  clearInterval(this.timer)
+	opacityChange(this,100,10)   
+  };
+  oDiv1.onmouseout=function(){
+	 clearInterval(this.timer)
+	 opacityChange(this,50,-10) 
+	  
+  }
+  function move(obj,target,attr){
+	 obj.timer=setInterval(function(){
+		 if(target>obj.offsetLeft){
+			 speed=Math.ceil((target-obj.offsetLeft)/8); 
+		 }else{
+			speed=Math.floor((target-obj.offsetLeft)/8);  
+		 }
+	  if(obj.offsetLeft==target){
+		   clearInterval(obj.timer)   
+	     }else{
+		 obj.style[attr]=obj.offsetLeft+speed+'px';
+		 console.log(obj.style[attr])
+		 }
+	 },30)
+ }
+  function opacityChange(obj,target,speed){
+     obj.timer=setInterval(function(){//通过定时器改变透明度的过度变化
+		 var iCurOpacity=Math.round(getCss(obj,'opacity')*100);//这里将小数改成整数，Math.round 防止在chorme下 0.1+0.2=0.30000004；
+	    if(iCurOpacity==target){
+		  clearInterval(obj.timer);//定时器放在触发的物体上面
+		}else{
+		  obj.style.opacity= (iCurOpacity+speed)/100;             
+          obj.style.filter='alpha(opacity='+(iCurOpacity+speed)+')';
+			}
+	 },30)
+  };
+
+
+  function getCss(obj,attr){
+     if(obj.currentStyle){
+	   return obj.currentStyle[attr];	 
+	 }else{
+	   return getComputedStyle(obj)[attr];	 
+	 };
+  };//获取样式表里面样式的值，兼容问题所以需要判断一下
+  
+}
+</script>

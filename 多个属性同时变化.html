@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background:#066; position:absolute;left:0;top:0; opacity:0.1}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+window.onload=function(){
+  var oDiv1=document.getElementById('div1');
+  oDiv1.onclick=function(){
+	  clearInterval(this.timer);
+	move(this,{
+		'width':500,
+		'height':300,
+		
+		},10)
+  };
+
+  
+function move(obj,json,speed){
+	 obj.timer=setInterval(function(){
+		 var flag=true;
+		 var iCur=null;
+		 for(var attr in json){
+			 if(attr=='opacity'){
+				iCur=Math.round(getCss(obj,attr)*100);
+				if(iCur==json[attr]){
+					clearInterval(obj.timer);
+					}else{
+						
+					     obj.style.opacity= (iCur+speed)/100;             
+                         obj.style.filter='alpha(opacity='+(iCur+speed)+')';	
+					} 
+			 }else{
+				 iCur=parseInt(getCss(obj,attr));
+					
+				 if(iCur!=json[attr]){
+				  flag=false;
+			     obj.style[attr]=iCur+speed+'px';
+			     }; 
+				 if(flag){
+				clearInterval(obj.timer);  
+			     };
+			 };
+		 }
+	 },30)
+ }
+ 
+  function getCss(obj,attr){
+     if(obj.currentStyle){
+	   return obj.currentStyle[attr];	 
+	 }else{
+	   return getComputedStyle(obj)[attr];	 
+	 };
+  };//获取样式表里面样式的值，兼容问题所以需要判断一下
+  
+}
+</script>
